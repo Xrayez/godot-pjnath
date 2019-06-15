@@ -1,7 +1,7 @@
 #ifndef PJNATH_H
 #define PJNATH_H
 
-#include "reference.h"
+#include "core/reference.h"
 
 class PJNATH : public Reference  {
     GDCLASS(PJNATH, Reference);
