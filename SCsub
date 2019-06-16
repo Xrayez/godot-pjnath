@@ -86,7 +86,6 @@ pjlib_sources = [
     # 'ioqueue_common_abs.h',
     # 'ioqueue_dummy.c', # no implementation
     # 'os_rwmutex.c', # THIS FILE WILL BE INCLUDED BY os_core_*.c
-    # 'ssl_sock_imp_common.h',
 ]
 pjlib_sources = [pjlib_dir + file for file in pjlib_sources]
 
@@ -148,6 +147,7 @@ pjnath_sources = [pjnath_dir + file for file in pjnath_sources]
 if env["platform"] == "windows": # note: fails compiling with MinGW
     
     pjlib_sources.remove(pjlib_dir + 'ip_helper_generic.c') # exclude
+    # 'ssl_sock_imp_common.c',
     
     pjlib_windows_sources = [
         'file_access_win32.c',
@@ -183,7 +183,13 @@ elif env["platform"] == "x11": # Linux
         'os_core_unix.c',
         'os_error_unix.c',
         'os_time_unix.c',
-        'guid_simple.c'
+        'guid_simple.c',
+        'os_timestamp_posix.c',
+        
+        # ifeq (epoll,$(LINUX_POLL))
+        'ioqueue_epoll.c',
+        # else
+        # 'ioqueue_select.c'
         
         # Exclusively for the Linux Kernel (?)
         # 'extra-exports.c',
@@ -203,7 +209,8 @@ elif env["platform"] == "osx": # MacOS # NOT TESTED
         'os_core_darwin.m',
         'sock_qos_darwin.c',
         'ssl_sock_darwin.c',
-        'guid_simple.c'
+        'guid_simple.c',
+        'os_timestamp_posix.c',
     ]
     pjlib_sources += [pjlib_dir + file for file in pjlib_osx_sources]
     
@@ -221,13 +228,8 @@ elif env["platform"] == "android":
         'guid_android.c',
         
         # Might not have the library:
-        # 'guid_uuid.c'
-        # 'guid_simple.c'
-        
-        # These couldn't be included in windows builds:
-        'ioqueue_epoll.c',
-        'os_timestamp_posix.c',
-        'ssl_sock_imp_common.c',
+        # 'guid_uuid.c',
+        # 'guid_simple.c',
     ]
     pjlib_sources += [pjlib_dir + file for file in pjlib_android_sources]
     
