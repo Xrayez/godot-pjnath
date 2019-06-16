@@ -13,20 +13,12 @@ env_module = env.Clone()
 thirdparty_dir = 'thirdparty/'
 
 pjlib_dir = thirdparty_dir + 'pjlib/src/pj/'
-
-# pjlib_util_dir = 'thirdparty/pjlib-util/'
-# pjlib_util_dirs = [
-#     pjlib_util_dir + 'src/pjlib-util/',
-# ]
-
-# pjnath_dir = 'thirdparty/pjnath/'
-# pjnath_dirs = [
-#     pjnath_dir + 'src/pjnath/',
-# ]
+pjlib_util_dir = thirdparty_dir + 'pjlib-util/src/pjlib-util/'
+pjnath_dir = thirdparty_dir + 'pjnath/src/pjnath/'
 
 env_module.Prepend(CPPPATH=[thirdparty_dir + 'pjlib/include/'])
-# env_module.Prepend(CPPPATH=[pjlib_util_dir + 'include/'])
-# env_module.Prepend(CPPPATH=[pjnath_dir + 'include/'])
+env_module.Prepend(CPPPATH=[thirdparty_dir + 'pjlib-util/include/'])
+env_module.Prepend(CPPPATH=[thirdparty_dir + 'pjnath/include/'])
 
 env_thirdparty = env_module.Clone()
 
