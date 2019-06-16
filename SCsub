@@ -22,9 +22,7 @@ env_module.Prepend(CPPPATH=[thirdparty_dir + 'pjnath/include/'])
 
 env_thirdparty = env_module.Clone()
 
-# Common sources
 pjlib_sources = [
-    
     # Common sources
     'activesock.c',
     'addr_resolv_sock.c',
@@ -133,6 +131,40 @@ pjlib_sources = [
 
 pjlib_sources = [pjlib_dir + file for file in pjlib_sources]
 
+pjlib_util_sources = [
+    'base64.c',
+    'cli.c',
+    'cli_console.c',
+    'cli_telnet.c',
+    'crc32.c',
+    'dns.c',
+    'dns_dump.c',
+    'dns_server.c',
+    'errno.c',
+    'getopt.c',
+    'hmac_md5.c',
+    'hmac_sha1.c',
+    'http_client.c',
+    'json.c',
+    'md5.c',
+    'pcap.c',
+    'resolver.c',
+    'resolver_wrap.cpp',
+    'scanner.c',
+    # 'scanner_cis_bitwise.c', # THIS FILE IS INCLUDED BY scanner.c.
+    # 'scanner_cis_uint.c', # THIS FILE IS INCLUDED BY scanner.c.
+    'sha1.c',
+    'srv_resolver.c',
+    'string.c',
+    'stun_simple.c',
+    'stun_simple_client.c',
+    'symbols.c',
+    'xml.c',
+    'xml_wrap.cpp',
+]
+
+pjlib_util_sources = [pjlib_util_dir + file for file in pjlib_util_sources]
+
 # Platform specific setup
 
 if env["platform"] == "windows":
@@ -173,6 +205,7 @@ elif env["platform"] == "android":
 
 # Done, add sources now
 env_thirdparty.add_source_files(env.modules_sources, pjlib_sources)
+env_thirdparty.add_source_files(env.modules_sources, pjlib_util_sources)
     
 env_thirdparty.disable_warnings()
 
