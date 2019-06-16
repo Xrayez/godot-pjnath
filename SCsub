@@ -2,11 +2,6 @@
 
 Import('env')
 
-# Extracted from godot/detect.py
-from compat import open_utf8
-from distutils.version import LooseVersion
-from detect import get_ndk_version
-
 from config import get_defines
 
 env_module = env.Clone()
