@@ -73,8 +73,31 @@ pjlib_sources = [
     # 'guid_uuid.c',
     # 'pool_signature.h',
     
-    # Symbian sources
+    # UNIX/Linux
+    # 'file_access_unistd.c',
+    # 'os_core_unix.c',
+    # 'os_error_unix.c',
+    # 'os_time_unix.c',
+    # 'extra-exports.c'
+    # 'log_writer_printk.c', # exclusively for the Linux Kernel
+    # 'pool_policy_kmalloc.c',
+    # 'os_time_bsd.c',
+    # 'sock_bsd.c',
+    # 'sock_qos_bsd.c',
     
+    # UWP
+    # 'ioqueue_uwp.cpp',
+    # 'ip_helper_winphone8.c',
+    # 'sock_uwp.cpp',
+    # 'sock_uwp.h',
+    
+    # Mac/OSX/iOS
+    # 'os_core_darwin.m',
+    # 'sock_qos_darwin.c',
+    # 'ssl_sock_darwin.c',
+    # 'os_info_iphone.m',
+    
+    # Symbian sources
     # 'addr_resolv_symbian.cpp',
     # 'exception_symbian.cpp',
     # 'ioqueue_symbian.cpp',
@@ -91,42 +114,17 @@ pjlib_sources = [
     # 'os_symbian.h',
     # 'sock_symbian.cpp',
     
-    # UNIX/Linux
-    # 'file_access_unistd.c',
-    # 'os_core_unix.c',
-    # 'os_error_unix.c',
-    # 'os_time_unix.c',
+    # Compat
+    # 'compat/sigjmp.c',
+    'compat/string_compat.c',
+    # 'compat/string.c',
     
-    # 'extra-exports.c'
-    # 'log_writer_printk.c', # exclusively for the Linux Kernel
-    # 'pool_policy_kmalloc.c',
-    
-    # 'os_time_bsd.c',
-    # 'sock_bsd.c',
-    # 'sock_qos_bsd.c',
-    
-    # UWP
-    # 'ioqueue_uwp.cpp',
-    # 'ip_helper_winphone8.c',
-    # 'sock_uwp.cpp',
-    # 'sock_uwp.h',
-    
-    # MacOS
-    # 'os_core_darwin.m',
-    # 'sock_qos_darwin.c',
-    # 'ssl_sock_darwin.c',
-    # 'os_info_iphone.m',
-    
+    # Not included
     # 'ioqueue_common_abs.c', # NOT supposed to be compiled as stand-alone source
     # 'ioqueue_common_abs.h',
     # 'ioqueue_dummy.c', # no implementation
     # 'os_rwmutex.c', # THIS FILE WILL BE INCLUDED BY os_core_*.c
     # 'ssl_sock_imp_common.h',
-    
-    # Compat
-    # 'compat/sigjmp.c',
-    'compat/string_compat.c',
-    # 'compat/string.c',
 ]
 pjlib_sources = [pjlib_dir + file for file in pjlib_sources]
 
