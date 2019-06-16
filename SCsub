@@ -10,24 +10,23 @@ env_module = env.Clone()
 
 # Thirdparty source files
 
-pjlib_dir = 'thirdparty/pjlib/'
-pjlib_dirs = [
-    pjlib_dir + 'src/pj/',
-]
+thirdparty_dir = 'thirdparty/'
 
-pjlib_util_dir = 'thirdparty/pjlib-util/'
-pjlib_util_dirs = [
-    pjlib_util_dir + 'src/pjlib-util/',
-]
+pjlib_dir = thirdparty_dir + 'pjlib/src/pj/'
 
-pjnath_dir = 'thirdparty/pjnath/'
-pjnath_dirs = [
-    pjnath_dir + 'src/pjnath/',
-]
+# pjlib_util_dir = 'thirdparty/pjlib-util/'
+# pjlib_util_dirs = [
+#     pjlib_util_dir + 'src/pjlib-util/',
+# ]
 
-env_module.Prepend(CPPPATH=[pjlib_dir + 'include/'])
-env_module.Prepend(CPPPATH=[pjlib_util_dir + 'include/'])
-env_module.Prepend(CPPPATH=[pjnath_dir + 'include/'])
+# pjnath_dir = 'thirdparty/pjnath/'
+# pjnath_dirs = [
+#     pjnath_dir + 'src/pjnath/',
+# ]
+
+env_module.Prepend(CPPPATH=[thirdparty_dir + 'pjlib/include/'])
+# env_module.Prepend(CPPPATH=[pjlib_util_dir + 'include/'])
+# env_module.Prepend(CPPPATH=[pjnath_dir + 'include/'])
 
 env_thirdparty = env_module.Clone()
 
@@ -134,12 +133,9 @@ pjlib_sources = [
     # 'compat/string.c',
 ]
 
-pj = []
+pjlib_sources = [pjlib_dir + file for file in pjlib_sources]
 
-for d in pjlib_dirs:
-    pj += [d + file for file in pjlib_sources]
-
-env_thirdparty.add_source_files(env.modules_sources, pj)
+env_thirdparty.add_source_files(env.modules_sources, pjlib_sources)
 
 # Platform specific setup
 if env["platform"] == "android":
