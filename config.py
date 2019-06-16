@@ -17,10 +17,11 @@ def get_doc_path():
 
 def get_defines(env):
     if env["platform"] == "android":
-        arch = env['android_arch']
+        # note: this could be handled by config_site.h as well
         return {
+            'PJ_CONFIG_ANDROID' : 1,
             'PJ_ANDROID' : 1,
-            'PJ_M_NAME' : '\\\"' + arch + '\\\"',
+            'PJ_M_NAME' : '\\\"' + env['android_arch'] + '\\\"',
             'PJ_IS_LITTLE_ENDIAN' : 1,
             'PJ_IS_BIG_ENDIAN' : 0,
         }

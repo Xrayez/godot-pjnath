@@ -17,6 +17,17 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
  */
+
+// -- GODOT start
+// netinet/tcp.h needs to be included on UNIX platforms but not on WIN
+#if defined(PJ_WIN32) || defined(_WIN32) || defined(__WIN32__) || \
+	defined(WIN32) || defined(PJ_WIN64) || defined(_WIN64) || \
+	defined(WIN64) || defined(__TOS_WIN__) 
+#else
+#include <netinet/tcp.h>
+#endif
+// -- GODOT end
+
 #include <pj/sock.h>
 #include <pj/os.h>
 #include <pj/assert.h>

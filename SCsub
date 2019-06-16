@@ -19,7 +19,7 @@ env_module.Prepend(CPPPATH=[thirdparty_dir + 'pjnath/include/'])
 
 env_thirdparty = env_module.Clone()
 
-# PJLIB
+# PJLIB (dependency of PJNATH)
 pjlib_sources = [
     # Allegedly platform-independent sources
     # Sync with pjlib/build/Makefile
@@ -32,19 +32,19 @@ pjlib_sources = [
     'errno.c',
     'except.c',
     'fifobuf.c',
-    # 'file_io_ansi.c',
+    'file_io_ansi.c',
     'ioqueue_select.c',
     'ip_helper_generic.c',
     'list.c',
     'log.c',
     'hash.c',
-    # 'ioqueue_epoll.c',
+    'ioqueue_epoll.c',
     'lock.c',
     'os_timestamp_common.c',
     'os_time_common.c',
     'log_writer_stdout.c',
     'os_info.c',
-    # 'os_timestamp_posix.c',
+    'os_timestamp_posix.c',
     'pool_policy_malloc.c',
     'rand.c',
     'pool.c',
@@ -77,7 +77,7 @@ pjlib_sources = [
 ]
 pjlib_sources = [pjlib_dir + file for file in pjlib_sources]
 
-# PJLIB UTILS
+# PJLIB UTILS (dependency of PJNATH)
 pjlib_util_sources = [
     'base64.c',
     'cli.c',
@@ -135,6 +135,9 @@ pjnath_sources = [pjnath_dir + file for file in pjnath_sources]
 if env["platform"] == "windows": # note: fails compiling with MinGW
     
     pjlib_sources.remove(pjlib_dir + 'ip_helper_generic.c') # exclude
+    pjlib_sources.remove(pjlib_dir + 'os_timestamp_posix.c') # exclude
+    pjlib_sources.remove(pjlib_dir + 'ioqueue_epoll.c') # exclude
+    pjlib_sources.remove(pjlib_dir + 'file_io_ansi.c') # exclude
     # 'ssl_sock_imp_common.c',
     
     pjlib_windows_sources = [
@@ -186,7 +189,7 @@ elif env["platform"] == "x11": # Linux
         
         # BSD
         # 'os_time_bsd.c',
-        # 'sock_bsd.c',
+        'sock_bsd.c',
         # 'sock_qos_bsd.c',
     ]
     pjlib_sources += [pjlib_dir + file for file in pjlib_x11_sources]
@@ -215,6 +218,12 @@ elif env["platform"] == "android":
 
     pjlib_android_sources = [
         'guid_android.c',
+        'sock_bsd.c',
+        'os_core_unix',
+        'os_error_unix.c',
+        'os_time_unix.c',
+        'guid_simple.c',
+        'os_timestamp_posix.c',
         
         # Might not have the library:
         # 'guid_uuid.c',
@@ -224,6 +233,7 @@ elif env["platform"] == "android":
     
 # Configure preprocessor defines per platform
 env_thirdparty.Append(CPPDEFINES=get_defines(env))
+env_module.Append(CPPDEFINES=get_defines(env)) # may need to force some defines
 #===============================================================================
 
 # Done, add sources now
