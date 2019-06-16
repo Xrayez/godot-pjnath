@@ -217,6 +217,7 @@ elif env["platform"] == "osx": # MacOS # NOT TESTED
 elif env["platform"] == "iphone": # iOS # NOT TESTED
     
     pjlib_iphone_sources = [
+        'os_core_darwin.m',
         'os_info_iphone.m',
         'guid.c',
     ]
