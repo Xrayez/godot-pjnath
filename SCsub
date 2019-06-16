@@ -7,6 +7,8 @@ from compat import open_utf8
 from distutils.version import LooseVersion
 from detect import get_ndk_version
 
+from config import get_defines
+
 env_module = env.Clone()
 
 # Thirdparty source files
@@ -26,6 +28,7 @@ env_thirdparty = env_module.Clone()
 # PJLIB
 pjlib_sources = [
     # Common sources
+    # Move these per platform if getting unresolved symbols
     'activesock.c',
     'addr_resolv_sock.c',
     'array.c',
@@ -196,7 +199,7 @@ elif env["platform"] == "x11": # Linux
         'os_time_unix.c',
         
         # Exclusively for the Linux Kernel (?)
-        # 'extra-exports.c'
+        # 'extra-exports.c',
         # 'log_writer_printk.c', 
         # 'pool_policy_kmalloc.c',
         
@@ -225,13 +228,6 @@ elif env["platform"] == "iphone": # iOS # NOT TESTED
     
 elif env["platform"] == "android":
 
-    env_thirdparty.Append(CPPDEFINES={
-            'PJ_ANDROID' : 1,
-            'PJ_M_NAME' : '\\\"' + env['android_arch'] + '\\\"',
-            'PJ_IS_LITTLE_ENDIAN' : 1,
-            'PJ_IS_BIG_ENDIAN' : 0,
-        }
-    )
     pjlib_android_sources = [
         'guid_android.c',
         # These couldn't be included in windows builds:
@@ -241,6 +237,8 @@ elif env["platform"] == "android":
     ]
     pjlib_sources += [pjlib_dir + file for file in pjlib_android_sources]
     
+# Configure defines platform
+env_thirdparty.Append(CPPDEFINES=get_defines(env))
 #===============================================================================
 
 # Done, add sources now
@@ -257,6 +255,6 @@ for key, value in ARGLIST:
         env_module.Append(CPPDEFINES=[value])
 
 # Add module sources
-env_module.add_source_files(env.modules_sources, '*.cpp')
+env_module.add_source_files(env.modules_sources, '*.cpp') # pjnath.cpp etc.
 
 Export('env_module')
