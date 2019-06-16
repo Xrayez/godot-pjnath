@@ -205,6 +205,7 @@ if env["platform"] == "windows":
 elif env["platform"] == "android":
 
     env_thirdparty.Append(CPPDEFINES={
+            'PJ_ANDROID' : 1,
             'PJ_M_NAME' : '\\\"' + env['android_arch'] + '\\\"',
             'PJ_IS_LITTLE_ENDIAN' : 1,
             'PJ_IS_BIG_ENDIAN' : 0,
@@ -212,7 +213,7 @@ elif env["platform"] == "android":
     )
     pjlib_android_sources = [
         'guid_android.c',
-        # Not specifically Android but might be required:
+        # These couldn't be included in windows builds:
         'ioqueue_epoll.c',
         'os_timestamp_posix.c',
         'ssl_sock_imp_common.c',
