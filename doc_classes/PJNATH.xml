@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="PJNATH" inherits="Reference" category="Core" version="3.2">
+	<brief_description>
+		PJNATH (PJSIP NAT Helper) is an open source library providing NAT traversal functionalities by using standard based protocols such as STUN, TURN, and ICE.
+	</brief_description>
+	<description>
+		Network Address Translation (NAT) is commonly deployed everywhere primarily to alleviate the exhaustion of IPv4 address space by allowing multiple hosts to share a public/Internet address. While NAT would work well for typical client server communications (such as web and email), since it's always the client that initiates the conversation and normally client doesn't need to maintain the connection for a long time, installation of NAT would cause major problem for peer-to-peer communication, such as (and especially) VoIP.
+		The library provides the following main component groups:
+		- STUN: Session Traversal Utilities for NAT
+		- TURN: Traversal Using Relays around NAT
+		- ICE: Interactive Connectivity Establishment
+		- NAT Classification/Detection Tool
+	</description>
+	<tutorials>
+		https://www.pjsip.org/pjnath/docs/html/
+		https://www.pjsip.org/pjnath/docs/html/group__samples__page.htm
+	</tutorials>
+	<methods>
+		<method name="initialize">
+			<return type="void">
+			</return>
+			<description>
+				Initializes PJNATH related units. Call this before doing anything else.
+			</description>
+		</method>
+	</methods>
+	<constants>
+	</constants>
+</class>
