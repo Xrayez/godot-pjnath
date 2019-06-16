@@ -8,10 +8,11 @@ from detect import get_ndk_version
 
 env_module = env.Clone()
 
+# Thirdparty source files
+
 pjlib_dir = 'thirdparty/pjlib/'
 pjlib_dirs = [
     pjlib_dir + 'src/pj/',
-    # pjlib_dir + 'src/pj/compat/',
 ]
 
 pjlib_util_dir = 'thirdparty/pjlib-util/'
@@ -28,7 +29,6 @@ env_module.Prepend(CPPPATH=[pjlib_dir + 'include/'])
 env_module.Prepend(CPPPATH=[pjlib_util_dir + 'include/'])
 env_module.Prepend(CPPPATH=[pjnath_dir + 'include/'])
 
-# Add thirdparty sources
 env_thirdparty = env_module.Clone()
 
 # Common sources
@@ -129,6 +129,9 @@ pjlib_sources = [
     'types.c',
     # 'unicode_symbian.cpp',
     # 'unicode_win32.c',
+    # 'compat/sigjmp.c',
+    'compat/string_compat.c',
+    # 'compat/string.c',
 ]
 
 pj = []
