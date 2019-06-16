@@ -22,11 +22,8 @@ env_thirdparty = env_module.Clone()
 # PJLIB
 pjlib_sources = [
     # Allegedly platform-independent sources
-    
     # Sync with pjlib/build/Makefile
-    
-    # Move these per platform if getting unresolved symbols
-    
+    # Move these per platform if getting compile errors or unresolved symbols
     'activesock.c',
     'addr_resolv_sock.c',
     'array.c',
@@ -77,12 +74,6 @@ pjlib_sources = [
     'compat/string_compat.c',
     # 'compat/sigjmp.c',
     # 'compat/string.c',
-    
-    # Not included
-    # 'ioqueue_common_abs.c', # NOT supposed to be compiled as stand-alone source
-    # 'ioqueue_common_abs.h',
-    # 'ioqueue_dummy.c', # no implementation
-    # 'os_rwmutex.c', # THIS FILE WILL BE INCLUDED BY os_core_*.c
 ]
 pjlib_sources = [pjlib_dir + file for file in pjlib_sources]
 
@@ -231,7 +222,7 @@ elif env["platform"] == "android":
     ]
     pjlib_sources += [pjlib_dir + file for file in pjlib_android_sources]
     
-# Configure defines platform
+# Configure preprocessor defines per platform
 env_thirdparty.Append(CPPDEFINES=get_defines(env))
 #===============================================================================
 
@@ -242,8 +233,9 @@ env_thirdparty.add_source_files(env.modules_sources, pjnath_sources)
 
 env_thirdparty.disable_warnings()
 
-# Optional arguments passed via command line 
-# possibly add missing PJ_* preprocessor defines
+# Optional arguments passed via command line.
+# Possibly, you might need to add missing PJ_* preprocessor defines this way
+# but likely they should be added in config.py: get_defines() callback instead.
 for key, value in ARGLIST:
     if key == 'define':
         env_module.Append(CPPDEFINES=[value])
