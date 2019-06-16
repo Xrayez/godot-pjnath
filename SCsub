@@ -48,7 +48,6 @@ pjlib_sources = [
     'file_io_ansi.c',
     # 'file_io_win32.c',
     'guid.c',
-    'guid_android.c',
     'guid_simple.c',
     # 'guid_uuid.c',
     # 'guid_win32.c',
@@ -135,8 +134,6 @@ pjlib_sources = [
 
 pjlib_sources = [pjlib_dir + file for file in pjlib_sources]
 
-env_thirdparty.add_source_files(env.modules_sources, pjlib_sources)
-
 # Platform specific setup
 if env["platform"] == "android":
 
@@ -146,6 +143,13 @@ if env["platform"] == "android":
             'PJ_IS_BIG_ENDIAN' : 0,
         }
     )
+    pjlib_android_sources = [
+        'guid_android.c'
+    ]
+    pjlib_sources += [pjlib_dir + file for file in pjlib_android_sources],
+
+
+env_thirdparty.add_source_files(env.modules_sources, pjlib_sources)
     
 env_thirdparty.disable_warnings()
 
