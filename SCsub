@@ -42,25 +42,25 @@ pjlib_sources = [
     'errno.c',
     'except.c',
     'fifobuf.c',
-    'file_io_ansi.c',
+    # 'file_io_ansi.c',
     'ioqueue_select.c',
-    'ip_helper_generic.c',
+    # 'ip_helper_generic.c',
     'list.c',
     'log.c',
     'hash.c',
-    'ioqueue_epoll.c',
+    # 'ioqueue_epoll.c',
     'lock.c',
     'os_timestamp_common.c',
     'os_time_common.c',
     'log_writer_stdout.c',
     'os_info.c',
-    'os_timestamp_posix.c',
+    # 'os_timestamp_posix.c',
     'pool_policy_malloc.c',
     'rand.c',
     'pool.c',
     'rbtree.c',
     'pool_buf.c',
-    'pool_policy_new.cpp',
+    # 'pool_policy_new.cpp',
     'sock_common.c',
     'sock_qos_common.c',
     'sock_qos_dummy.c',
@@ -72,12 +72,12 @@ pjlib_sources = [
     'ssl_sock_ossl.c',
     'ssl_sock_gtls.c',
     'string.c',
-    'ssl_sock_imp_common.c',
+    # 'ssl_sock_imp_common.c',
     'symbols.c',
     'types.c',
     'timer.c',
-    'guid.c',
-    'guid_simple.c',
+    # 'guid.c',
+    # 'guid_simple.c',
     
     # 'guid_uuid.c',
     # 'pool_signature.h', TODO
@@ -101,10 +101,10 @@ pjlib_sources = [
     # 'sock_symbian.cpp',
     
     # UNIX/Linux
-    'file_access_unistd.c',
-    'os_core_unix.c',
-    'os_error_unix.c',
-    'os_time_unix.c',
+    # 'file_access_unistd.c',
+    # 'os_core_unix.c',
+    # 'os_error_unix.c',
+    # 'os_time_unix.c',
     
     # 'extra-exports.c'
     # 'log_writer_printk.c', # exclusively for the Linux Kernel
@@ -114,18 +114,6 @@ pjlib_sources = [
     # 'sock_bsd.c',
     # 'sock_qos_bsd.c',
     
-    # Windows
-    # 'file_access_win32.c',
-    # 'file_io_win32.c',
-    # 'guid_win32.c',
-    # 'ioqueue_winnt.c',
-    # 'ip_helper_win32.c',
-    # 'os_core_win32.c',
-    # 'os_error_win32.c',
-    # 'os_timestamp_win32.c',
-    # 'os_time_win32.c',
-    # 'sock_qos_wm.c',
-    # 'unicode_win32.c',
     
     # UWP
     # 'ioqueue_uwp.cpp',
@@ -154,7 +142,27 @@ pjlib_sources = [
 pjlib_sources = [pjlib_dir + file for file in pjlib_sources]
 
 # Platform specific setup
-if env["platform"] == "android":
+
+if env["platform"] == "windows":
+    
+    pjlib_windows_sources = [
+        'file_access_win32.c',
+        'file_io_win32.c',
+        'guid_win32.c',
+        # 'ioqueue_winnt.c',
+        'ip_helper_win32.c',
+        'os_core_win32.c',
+        'os_error_win32.c',
+        'os_timestamp_win32.c',
+        'os_time_win32.c',
+        'sock_qos_wm.c',
+        'unicode_win32.c',
+        'sock_bsd.c',
+        'sock_qos_bsd.c',
+    ]
+    pjlib_sources += [pjlib_dir + file for file in pjlib_windows_sources],
+
+elif env["platform"] == "android":
 
     env_thirdparty.Append(CPPDEFINES={
             'PJ_M_NAME' : '\\\"' + env['android_arch'] + '\\\"',
@@ -163,11 +171,15 @@ if env["platform"] == "android":
         }
     )
     pjlib_android_sources = [
-        'guid_android.c'
+        'guid_android.c',
+        # Not specifically Android but are required:
+        'ioqueue_epoll.c',
+        'os_timestamp_posix.c',
+        'ssl_sock_imp_common.c',
     ]
     pjlib_sources += [pjlib_dir + file for file in pjlib_android_sources],
 
-
+# Done, add sources now
 env_thirdparty.add_source_files(env.modules_sources, pjlib_sources)
     
 env_thirdparty.disable_warnings()

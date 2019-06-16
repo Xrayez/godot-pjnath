@@ -28,13 +28,29 @@
 #if defined(_MSC_VER) && _MSC_VER==1200 && !defined(PJ_WIN32_WINCE)
 #   define PMIB_ICMP_EX void*
 #endif
+
 #include <winsock2.h>
 
 /* If you encounter error "Cannot open include file: 'Iphlpapi.h' here,
  * you need to install newer Platform SDK. Presumably you're using
  * Microsoft Visual Studio 6?
  */
-#include <Iphlpapi.h>
+// -- GODOT start --
+// Note 1: the following workaround borrowed from godot/drivers/unix/ip_unix.cpp
+#if defined(__MINGW32__) && (!defined(__MINGW64_VERSION_MAJOR) || __MINGW64_VERSION_MAJOR < 4)
+// MinGW-w64 on Ubuntu 12.04 (our Travis build env) has bugs in this code where
+// some includes are missing in dependencies of iphlpapi.h for WINVER >= 0x0600 (Vista).
+// We don't use this Vista code for now, so working it around by disabling it.
+// MinGW-w64 >= 4.0 seems to be better judging by its headers.
+#undef _WIN32_WINNT
+#define _WIN32_WINNT 0x0501 // Windows XP, disable Vista API
+#include <iphlpapi.h>
+#undef _WIN32_WINNT
+#define _WIN32_WINNT 0x0600 // Re-enable Vista API
+#else
+#include <iphlpapi.h>
+#endif // MINGW hack
+// -- GODOT end --
 
 #include <pj/ip_helper.h>
 #include <pj/assert.h>
