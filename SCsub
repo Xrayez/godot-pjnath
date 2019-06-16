@@ -249,6 +249,6 @@ for key, value in ARGLIST:
         env_module.Append(CPPDEFINES=[value])
 
 # Add module sources
-env_module.add_source_files(env.modules_sources, '*.cpp') # pjnath.cpp etc.
+env_module.add_source_files(env.modules_sources, '*.cpp') # pjnath_wrap.cpp etc.
 
 Export('env_module')

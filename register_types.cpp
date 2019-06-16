@@ -1,5 +1,5 @@
 #include "register_types.h"
-#include "pjnath.h"
+#include "pjnath_wrap.h"
 
 void register_pjnath_types() {
 
