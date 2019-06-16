@@ -187,7 +187,7 @@ elif env["platform"] == "uwp": # NOT TESTED
     ]
     pjlib_sources += [pjlib_dir + file for file in pjlib_uwp_sources]
     
-elif env["platform"] == "x11": # Linux # NOT TESTED
+elif env["platform"] == "x11": # Linux
     
     pjlib_x11_sources = [
         'file_access_unistd.c',
@@ -251,7 +251,7 @@ env_thirdparty.add_source_files(env.modules_sources, pjnath_sources)
 env_thirdparty.disable_warnings()
 
 # Optional arguments passed via command line 
-# (possibly add missing PJ_* preprocessor defines)
+# possibly add missing PJ_* preprocessor defines
 for key, value in ARGLIST:
     if key == 'define':
         env_module.Append(CPPDEFINES=[value])
