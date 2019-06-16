@@ -17,9 +17,10 @@ def get_doc_path():
 
 def get_defines(env):
     if env["platform"] == "android":
+        arch = env['android_arch']
         return {
             'PJ_ANDROID' : 1,
-            'PJ_M_NAME' : '\\\"' + env['android_arch'] + '\\\"',
+            'PJ_M_NAME' : '\\\"' + arch + '\\\"',
             'PJ_IS_LITTLE_ENDIAN' : 1,
             'PJ_IS_BIG_ENDIAN' : 0,
         }

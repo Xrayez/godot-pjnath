@@ -1,3 +1,3 @@
 # PJNATH module for Godot
 
-Upstream version: https://github.com/pjsip/pjproject/tree/2.9
+See [thirdparty/README.md](thirdparty/README.md) for PJNATH license and details.

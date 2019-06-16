@@ -129,7 +129,7 @@
 // -- GODOT start --
 /* Android specifics */
 
-/* Note: NDK > 19 there is no sys/timeb.h */
+/* Note: NDK > 19 there is no sys/timeb.h, could be checked somehow */
 #if defined(__ANDROID__)
 #   undef PJ_HAS_SYS_TIMEB_H
 #   define PJ_HAS_SYS_TIMEB_H 0
