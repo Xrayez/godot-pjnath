@@ -7,7 +7,6 @@ from config import get_defines
 env_module = env.Clone()
 
 # Thirdparty source files
-
 thirdparty_dir = 'thirdparty/'
 
 pjlib_dir = thirdparty_dir + 'pjlib/src/pj/'
@@ -70,23 +69,6 @@ pjlib_sources = [
     # 'guid_simple.c',
     # 'guid_uuid.c',
     # 'pool_signature.h',
-    
-    # Symbian sources (not supported by Godot)
-    # 'addr_resolv_symbian.cpp',
-    # 'exception_symbian.cpp',
-    # 'ioqueue_symbian.cpp',
-    # 'ip_helper_symbian.cpp',
-    # 'log_writer_symbian_console.cpp',
-    # 'os_core_symbian.cpp',
-    # 'os_error_symbian.cpp',
-    # 'os_info_symbian.cpp',
-    # 'sock_qos_symbian.cpp',
-    # 'sock_select_symbian.cpp',
-    # 'ssl_sock_symbian.cpp',
-    # 'timer_symbian.cpp',
-    # 'unicode_symbian.cpp',
-    # 'os_symbian.h',
-    # 'sock_symbian.cpp',
     
     # Compat
     'compat/string_compat.c',
@@ -157,7 +139,7 @@ pjnath_sources = [pjnath_dir + file for file in pjnath_sources]
 # Platform specific setup
 #===============================================================================
 
-if env["platform"] == "windows":
+if env["platform"] == "windows": # note: fails compiling with MinGW
     
     pjlib_windows_sources = [
         'file_access_win32.c',
