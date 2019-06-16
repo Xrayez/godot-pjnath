@@ -22,6 +22,7 @@ env_module.Prepend(CPPPATH=[thirdparty_dir + 'pjnath/include/'])
 
 env_thirdparty = env_module.Clone()
 
+# PJLIB
 pjlib_sources = [
     # Common sources
     'activesock.c',
@@ -70,7 +71,7 @@ pjlib_sources = [
     # 'guid_simple.c',
     
     # 'guid_uuid.c',
-    # 'pool_signature.h', TODO
+    # 'pool_signature.h',
     
     # Symbian sources
     
@@ -104,7 +105,6 @@ pjlib_sources = [
     # 'sock_bsd.c',
     # 'sock_qos_bsd.c',
     
-    
     # UWP
     # 'ioqueue_uwp.cpp',
     # 'ip_helper_winphone8.c',
@@ -128,9 +128,9 @@ pjlib_sources = [
     'compat/string_compat.c',
     # 'compat/string.c',
 ]
-
 pjlib_sources = [pjlib_dir + file for file in pjlib_sources]
 
+# PJLIB UTILS
 pjlib_util_sources = [
     'base64.c',
     'cli.c',
@@ -149,7 +149,7 @@ pjlib_util_sources = [
     'md5.c',
     'pcap.c',
     'resolver.c',
-    'resolver_wrap.cpp',
+    # 'resolver_wrap.cpp', # https://trac.pjsip.org/repos/ticket/886
     'scanner.c',
     # 'scanner_cis_bitwise.c', # THIS FILE IS INCLUDED BY scanner.c.
     # 'scanner_cis_uint.c', # THIS FILE IS INCLUDED BY scanner.c.
@@ -160,12 +160,30 @@ pjlib_util_sources = [
     'stun_simple_client.c',
     'symbols.c',
     'xml.c',
-    'xml_wrap.cpp',
+    # 'xml_wrap.cpp', # https://trac.pjsip.org/repos/ticket/886
 ]
-
 pjlib_util_sources = [pjlib_util_dir + file for file in pjlib_util_sources]
 
+# PJNATH
+pjnath_sources = [
+    'errno.c',
+    'ice_session.c',
+    'ice_strans.c',
+    'nat_detect.c',
+    'stun_auth.c',
+    'stun_msg.c',
+    'stun_msg_dump.c',
+    'stun_session.c',
+    'stun_sock.c',
+    'stun_transaction.c',
+    'turn_session.c',
+    'turn_sock.c',
+]
+pjnath_sources = [pjnath_dir + file for file in pjnath_sources]
+
+# ==============================================================================
 # Platform specific setup
+# ==============================================================================
 
 if env["platform"] == "windows":
     
@@ -196,7 +214,7 @@ elif env["platform"] == "android":
     )
     pjlib_android_sources = [
         'guid_android.c',
-        # Not specifically Android but are required:
+        # Not specifically Android but might be required:
         'ioqueue_epoll.c',
         'os_timestamp_posix.c',
         'ssl_sock_imp_common.c',
@@ -206,7 +224,8 @@ elif env["platform"] == "android":
 # Done, add sources now
 env_thirdparty.add_source_files(env.modules_sources, pjlib_sources)
 env_thirdparty.add_source_files(env.modules_sources, pjlib_util_sources)
-    
+env_thirdparty.add_source_files(env.modules_sources, pjnath_sources)
+
 env_thirdparty.disable_warnings()
 
 # Optional arguments
