@@ -1,6 +1,6 @@
 
 def can_build(env, platform):
-    if env["platform"] in ["javascript", "haiku"]:
+    if platform in ["javascript", "haiku"]:
         return False
     return True
 
