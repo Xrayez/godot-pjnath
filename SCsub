@@ -33,7 +33,7 @@ pjlib_sources = [
     'fifobuf.c',
     # 'file_io_ansi.c',
     'ioqueue_select.c',
-    # 'ip_helper_generic.c',
+    'ip_helper_generic.c',
     'list.c',
     'log.c',
     'hash.c',
@@ -140,6 +140,8 @@ pjnath_sources = [pjnath_dir + file for file in pjnath_sources]
 #===============================================================================
 
 if env["platform"] == "windows": # note: fails compiling with MinGW
+    
+    pjlib_sources.remove(pjlib_dir + 'ip_helper_generic.c') # exclude
     
     pjlib_windows_sources = [
         'file_access_win32.c',
