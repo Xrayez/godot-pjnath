@@ -21,7 +21,8 @@ env_thirdparty = env_module.Clone()
 
 # PJLIB
 pjlib_sources = [
-    # Common sources
+    # Allegedly platform-independent sources
+    
     # Sync with pjlib/build/Makefile
     
     # Move these per platform if getting unresolved symbols
@@ -68,10 +69,12 @@ pjlib_sources = [
     'symbols.c',
     'types.c',
     'timer.c',
-    'guid.c',
+    # 'pool_signature.h',
+    
+    # Included per platform but kept for reference:
+    # 'guid.c',
     # 'guid_simple.c',
     # 'guid_uuid.c',
-    # 'pool_signature.h',
     
     # Compat
     'compat/string_compat.c',
@@ -169,6 +172,7 @@ elif env["platform"] == "uwp": # NOT TESTED
         'ioqueue_uwp.cpp',
         # 'ip_helper_winphone8.c',
         'sock_uwp.cpp',
+        'guid.c',
     ]
     pjlib_sources += [pjlib_dir + file for file in pjlib_uwp_sources]
     
@@ -179,6 +183,7 @@ elif env["platform"] == "x11": # Linux
         'os_core_unix.c',
         'os_error_unix.c',
         'os_time_unix.c',
+        'guid_simple.c'
         
         # Exclusively for the Linux Kernel (?)
         # 'extra-exports.c',
@@ -198,6 +203,7 @@ elif env["platform"] == "osx": # MacOS # NOT TESTED
         'os_core_darwin.m',
         'sock_qos_darwin.c',
         'ssl_sock_darwin.c',
+        'guid_simple.c'
     ]
     pjlib_sources += [pjlib_dir + file for file in pjlib_osx_sources]
     
@@ -205,6 +211,7 @@ elif env["platform"] == "iphone": # iOS # NOT TESTED
     
     pjlib_iphone_sources = [
         'os_info_iphone.m',
+        'guid.c',
     ]
     pjlib_sources += [pjlib_dir + file for file in pjlib_iphone_sources]
     
@@ -212,6 +219,11 @@ elif env["platform"] == "android":
 
     pjlib_android_sources = [
         'guid_android.c',
+        
+        # Might not have the library:
+        # 'guid_uuid.c'
+        # 'guid_simple.c'
+        
         # These couldn't be included in windows builds:
         'ioqueue_epoll.c',
         'os_timestamp_posix.c',
