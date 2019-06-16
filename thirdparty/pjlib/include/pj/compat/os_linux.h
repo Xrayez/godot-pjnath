@@ -126,6 +126,15 @@
 /* Linux has socklen_t */
 #define PJ_HAS_SOCKLEN_T		1
 
+// -- GODOT start --
+/* Android specifics */
+
+/* Note: NDK > 19 there is no sys/timeb.h */
+#if defined(__ANDROID__)
+#   undef PJ_HAS_SYS_TIMEB_H
+#   define PJ_HAS_SYS_TIMEB_H 0
+#endif
+// -- GODOT end --
 
 #endif	/* __PJ_COMPAT_OS_LINUX_H__ */
 
