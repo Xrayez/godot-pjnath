@@ -53,7 +53,6 @@ pjlib_sources = [
     'pool.c',
     'rbtree.c',
     'pool_buf.c',
-    # 'pool_policy_new.cpp',
     'sock_common.c',
     'sock_qos_common.c',
     'sock_qos_dummy.c',
@@ -65,11 +64,9 @@ pjlib_sources = [
     'ssl_sock_ossl.c',
     'ssl_sock_gtls.c',
     'string.c',
-    # 'ssl_sock_imp_common.c',
     'symbols.c',
     'types.c',
     'timer.c',
-    # 'pool_signature.h',
     
     # Included per platform but kept for reference:
     # 'guid.c',
