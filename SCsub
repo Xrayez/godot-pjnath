@@ -22,7 +22,10 @@ env_thirdparty = env_module.Clone()
 # PJLIB
 pjlib_sources = [
     # Common sources
+    # Sync with pjlib/build/Makefile
+    
     # Move these per platform if getting unresolved symbols
+    
     'activesock.c',
     'addr_resolv_sock.c',
     'array.c',
@@ -65,7 +68,7 @@ pjlib_sources = [
     'symbols.c',
     'types.c',
     'timer.c',
-    # 'guid.c',
+    'guid.c',
     # 'guid_simple.c',
     # 'guid_uuid.c',
     # 'pool_signature.h',
