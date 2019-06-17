@@ -255,7 +255,11 @@
 #   define PJ_IS_LITTLE_ENDIAN	0
 #   define PJ_IS_BIG_ENDIAN	1
 
-#elif defined(ARM) || defined(_ARM_) ||  defined(__arm__) || defined(_M_ARM)
+// -- GODOT start --
+// target arm64v8
+#elif defined(ARM) || defined(_ARM_) ||  defined(__arm__) || defined(_M_ARM) || \
+     defined(__aarch64__)
+// -- GODOT end --
 #   define PJ_HAS_PENTIUM	0
     /*
      * ARM, bi-endian, so raise error if endianness is not configured
