@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<class name="PJNATH" inherits="Reference" category="Core" version="3.2">
+<class name="PJNATH" inherits="Reference" category="Core" version="3.1">
 	<brief_description>
 		PJNATH (PJSIP NAT Helper) is an open source library providing NAT traversal functionalities by using standard based protocols such as STUN, TURN, and ICE.
 	</brief_description>
