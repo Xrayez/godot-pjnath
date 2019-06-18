@@ -16,8 +16,9 @@ def get_doc_path():
     return "doc_classes"
 
 def get_defines(env):
+    # note: this could be handled by config_site.h (also refer config.h)
+    
     if env["platform"] == "android":
-        # note: this could be handled by config_site.h as well (refer config.h)
         arch = env['android_arch']
         
         if arch == "armv7":
