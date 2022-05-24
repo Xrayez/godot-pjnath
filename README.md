@@ -2,7 +2,9 @@
 
 Godot 3.1 compatible.
 
-See [thirdparty/README.md](thirdparty/README.md) for PJNATH license and details.
+*Note*: this module was created as part of my freelance work, and I decided to
+release it to the public. Feel free to build upon it if you ever find this
+module useful in any way!
 
 ## Installation
 
@@ -19,3 +21,9 @@ scons platform=windows target=release_debug bits=64
 
 Also see platform-specific instructions:
 * [Building for Android](README-android.md)
+
+## License
+
+The module is released under the MIT license.
+
+See [thirdparty/README.md](thirdparty/README.md) for PJNATH license and details.
